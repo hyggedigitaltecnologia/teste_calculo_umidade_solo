@@ -69,5 +69,4 @@ public class DSL {
         Select combo = new Select(element);
         return combo.getFirstSelectedOption().getText();
     }
-
 }
