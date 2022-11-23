@@ -1,11 +1,11 @@
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
+import org.apache.commons.io.FileUtils;
+import org.junit.*;
+import org.junit.rules.TestName;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.File;
+import java.io.IOException;
 
 public class TesteCalculoUmidadeSolo {
 
@@ -21,8 +21,13 @@ public class TesteCalculoUmidadeSolo {
         dsl = new DSL(driver);
     }
 
+    @Rule
+    public TestName testName = new TestName();
+
     @After
-    public void finaliza() {
+    public void finaliza() throws IOException {
+        File printFinal = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(printFinal, new File("target/screenshot/" + testName.getMethodName() + ".jpg"));
         driver.quit();
     }
 
